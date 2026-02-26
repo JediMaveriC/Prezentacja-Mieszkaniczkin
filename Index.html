@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI po ludzku – Mieszkanicznik Białystok 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #f0f0f0; }
+  
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,10,0.95); padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #333;
+  }
+  .nav-title { font-size: 13px; color: #888; }
+  .nav-counter { font-size: 13px; color: #888; }
+  .nav-dots { display: flex; gap: 6px; }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #444; cursor: pointer; transition: background 0.2s;
+  }
+  .nav-dot.active { background: #e85d04; }
+
+  .slide-container { width: 100%; }
+
+  .slide {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 60px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .slide.active { display: block; }
+
+  /* SLIDE 1 */
+  .slide-1 { display: none; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .slide-1.active { display: flex; }
+  .slide-1 .eyebrow { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #e85d04; margin-bottom: 24px; }
+  .slide-1 h1 { font-size: 72px; font-weight: 900; line-height: 1.0; margin-bottom: 12px; }
+  .slide-1 h1 em { color: #e85d04; font-style: normal; }
+  .slide-1 h2 { font-size: 22px; font-weight: 400; color: #aaa; margin-bottom: 48px; max-width: 700px; line-height: 1.5; }
+  .quote-box {
+    background: linear-gradient(135deg, #1a1a1a, #222);
+    border-left: 5px solid #e85d04;
+    padding: 28px 36px;
+    margin-bottom: 48px;
+    max-width: 700px;
+    border-radius: 0 12px 12px 0;
+  }
+  .quote-box blockquote { font-size: 26px; font-style: italic; color: #fff; margin-bottom: 12px; line-height: 1.4; }
+  .quote-box cite { font-size: 13px; color: #888; }
+  .promises { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
+  .promise {
+    background: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+    padding: 20px 24px; flex: 1; min-width: 200px;
+  }
+  .promise .icon { font-size: 28px; margin-bottom: 10px; }
+  .promise p { font-size: 15px; line-height: 1.5; color: #ccc; }
+  .slide-meta { font-size: 13px; color: #555; border-top: 1px solid #222; padding-top: 20px; width: 100%; }
+  .slide-meta a { color: #e85d04; text-decoration: none; }
+
+  /* GENERAL SLIDE STYLES */
+  .slide h2.slide-title {
+    font-size: 48px; font-weight: 900; line-height: 1.1;
+    margin-bottom: 8px; color: #fff;
+  }
+  .slide h2.slide-title em { color: #e85d04; font-style: normal; }
+  .slide h3.slide-subtitle {
+    font-size: 20px; font-weight: 400; color: #888;
+    margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 20px;
+  }
+  .section-header {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #e85d04; margin-bottom: 16px; margin-top: 36px;
+  }
+  .section-header:first-of-type { margin-top: 0; }
+  
+  p { font-size: 16px; line-height: 1.7; color: #ccc; margin-bottom: 16px; }
+  
+  .highlight-box {
+    background: linear-gradient(135deg, #1a0a00, #1f1200);
+    border: 1px solid #e85d04;
+    border-radius: 12px; padding: 24px 28px; margin: 24px 0;
+    font-size: 20px; font-style: italic; color: #fff; line-height: 1.5;
+  }
+  .highlight-box strong { color: #e85d04; font-style: normal; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 24px 0; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin: 24px 0; }
+
+  .card {
+    background: #141414; border: 1px solid #2a2a2a; border-radius: 12px;
+    padding: 20px 24px;
+  }
+  .card h4 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .card p { font-size: 14px; color: #aaa; margin-bottom: 0; }
+  .card.accent { border-color: #e85d04; }
+
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+  th { background: #1a1a1a; color: #e85d04; padding: 12px 16px; text-align: left; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  td { padding: 12px 16px; border-bottom: 1px solid #1a1a1a; color: #ccc; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #0f0f0f; }
+
+  .checklist { list-style: none; margin: 16px 0; }
+  .checklist li { padding: 8px 0; font-size: 15px; color: #ccc; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .checklist li .icon { flex-shrink: 0; }
+
+  .code-block {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 20px 24px; font-family: 'Courier New', monospace; font-size: 13px;
+    color: #c9d1d9; line-height: 1.7; margin: 16px 0; white-space: pre-wrap;
+  }
+  .code-block .comment { color: #8b949e; }
+
+  .tag { display: inline-block; background: #1a1a1a; border: 1px solid #333; border-radius: 20px; padding: 4px 12px; font-size: 12px; color: #aaa; margin: 3px; }
+  .tag.red { border-color: #e85d04; color: #e85d04; }
+  .tag.green { border-color: #28a745; color: #28a745; }
+
+  .stat { text-align: center; padding: 20px; }
+  .stat .number { font-size: 52px; font-weight: 900; color: #e85d04; line-height: 1; }
+  .stat .label { font-size: 13px; color: #888; margin-top: 6px; }
+
+  .link-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
+    padding: 10px 16px; font-size: 14px; color: #e85d04;
+    text-decoration: none; margin: 6px 4px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .link-pill:hover { border-color: #e85d04; background: #1a0a00; }
+
+  .nav-arrows {
+    position: fixed; bottom: 30px; right: 30px;
+    display: flex; gap: 12px; z-index: 100;
+  }
+  .nav-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #1a1a1a; border: 1px solid #333; color: #fff;
+    font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { background: #e85d04; border-color: #e85d04; }
+
+  .slide-number {
+    position: fixed; bottom: 30px; left: 30px;
+    font-size: 13px; color: #555; z-index: 100;
+  }
+
+  .badge { display: inline-block; background: #e85d04; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+  .badge.new { background: #28a745; }
+
+  .demo-box {
+    background: #0a1628; border: 1px solid #1e4080; border-radius: 12px;
+    padding: 24px; margin: 20px 0;
+  }
+  .demo-box h4 { color: #4d9fff; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+
+  .step { display: flex; gap: 16px; align-items: flex-start; margin: 16px 0; }
+  .step-num { 
+    width: 32px; height: 32px; border-radius: 50%; background: #e85d04;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; flex-shrink: 0; color: #fff;
+  }
+  .step-content h4 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .step-content p { font-size: 14px; color: #aaa; margin: 0; }
+
+  .vs-row { display: flex; gap: 16px; align-items: stretch; margin: 8px 0; }
+  .vs-bad { flex: 1; background: #1a0a0a; border: 1px solid #5c1a1a; border-radius: 8px; padding: 14px 18px; }
+  .vs-bad .label { font-size: 10px; color: #c0392b; letter-spacing: 2px; margin-bottom: 8px; }
+  .vs-good { flex: 1; background: #0a1a0a; border: 1px solid #1a5c1a; border-radius: 8px; padding: 14px 18px; }
+  .vs-good .label { font-size: 10px; color: #27ae60; letter-spacing: 2px; margin-bottom: 8px; }
+  .vs-bad p, .vs-good p { font-size: 13px; margin: 0; font-style: italic; color: #ccc; }
+
+  hr.divider { border: none; border-top: 1px solid #1e1e1e; margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="nav-title">AI po ludzku – Mieszkanicznik Białystok 2026</span>
+  <div class="nav-dots" id="navDots"></div>
+  <span class="nav-counter" id="navCounter">1 / 10</span>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide slide-1 active" id="slide-1">
+  <div class="eyebrow">Mieszkanicznik Białystok · 26.02.2026</div>
+  <h1>AI <em>po ludzku.</em></h1>
+  <h2>Gdzie sztuczna inteligencja naprawdę pomoże inwestorowi — i gdzie Cię okłamie.</h2>
+  <div class="quote-box">
+    <blockquote>"Sprawdziłem — i skłamało."</blockquote>
+    <cite>— uczestnik tego spotkania, w ankiecie przed prelekcją</cite>
+  </div>
+  <div class="promises">
+    <div class="promise">
+      <div class="icon">🧠</div>
+      <p>Zrozumiesz dlaczego AI kłamie i jak to wykorzystać</p>
+    </div>
+    <div class="promise">
+      <div class="icon">💬</div>
+      <p>Nauczysz się rozmawiać z AI żeby dostawać użyteczne odpowiedzi</p>
+    </div>
+    <div class="promise">
+      <div class="icon">🛠️</div>
+      <p>Wyjdziesz z konkretnymi narzędziami do wdrożenia jutro rano</p>
+    </div>
+  </div>
+  <div class="slide-meta">
+    Marcin Lenkiewicz · Trener AI i konsultant biznesowy &nbsp;|&nbsp; <a href="https://ai-mieszkanicznik.netlify.app/" target="_blank">ai-mieszkanicznik.netlify.app</a>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="slide-2">
+  <h2 class="slide-title">AI nie myśli. <em>AI przewiduje.</em></h2>
+  <h3 class="slide-subtitle">I robi to lepiej niż cokolwiek w historii ludzkości.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Mechanizm działania</div>
+      <p>Modele językowe (LLM) wytrenowane na setkach miliardów zdań nauczyły się jednej rzeczy:</p>
+      <div class="highlight-box"><strong>"Jakie słowo najprawdopodobniej pojawi się po poprzednich słowach?"</strong></div>
+      <p>To nie jest myślenie. To jest ekstremalnie zaawansowane uzupełnianie zdania działające na niewyobrażalnej skali.</p>
+      <p><strong>Przykład:</strong> Gdy wpisujesz <em>"Stolica Francji to..."</em> — AI nie "wie" że Paryż to stolica. AI wie, że po tych słowach statystycznie najczęściej pojawia się "Paryż". To samo działa dla analizy 80-stronicowej umowy deweloperskiej.</p>
+    </div>
+    <div>
+      <div class="section-header">Analogia która zostaje w głowie</div>
+      <div class="card accent">
+        <h4>Wyobraź sobie takiego człowieka:</h4>
+        <p>Przeczytał całą Wikipedię. Wszystkie książki prawnicze do 2024 roku. Miliony ogłoszeń z Otodom. Każde orzeczenie Sądu Najwyższego dostępne online. Fora dyskusyjne inwestorów.</p>
+      </div>
+      <div class="card" style="margin-top:16px; border-color:#c0392b;">
+        <h4>Ale nigdy nie wyszedł z domu.</h4>
+        <p>Nie był w sądzie. Nie widział umowy z Białegostoku z zeszłego miesiąca. Nie wie co się zmieniło w prawie w tym kwartale. Nie sprawdził czy to co przeczytał jest aktualne.</p>
+      </div>
+      <p style="margin-top:16px; font-size:18px; color:#e85d04; font-weight:700;">To jest ChatGPT. To jest Claude. To jest Gemini.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-header">Skala — żeby poczuć co to znaczy</div>
+  <div class="three-col">
+    <div class="stat">
+      <div class="number">5K</div>
+      <div class="label">książek przeczyta człowiek przez całe życie</div>
+    </div>
+    <div class="stat">
+      <div class="number">13M</div>
+      <div class="label">książek odpowiada treningowi GPT-5.2</div>
+    </div>
+    <div class="stat">
+      <div class="number">100+</div>
+      <div class="label">języków w których biegle operuje</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="two-col">
+    <div>
+      <div class="section-header">✅ AI jest świetne w:</div>
+      <ul class="checklist">
+        <li><span class="icon">✅</span>Opisach, tekstach, tłumaczeniach — natychmiast w każdym stylu</li>
+        <li><span class="icon">✅</span>Analizie dokumentów i wyciąganiu kluczowych informacji</li>
+        <li><span class="icon">✅</span>Generowaniu pomysłów, scenariuszy, szablonów</li>
+        <li><span class="icon">✅</span>Pisaniu kodu i tworzeniu dashboardów</li>
+        <li><span class="icon">✅</span>Rozmowie — prowadzeniu przez problem krok po kroku</li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-header">❌ AI jest słabe w:</div>
+      <ul class="checklist">
+        <li><span class="icon">❌</span>Aktualnych danych — ceny, kursy, orzeczenia, przepisy</li>
+        <li><span class="icon">❌</span>Lokalnych specyfikach — prawo polskie, rynek Białystok</li>
+        <li><span class="icon">❌</span>Pamiętaniu rozmów poza bieżącym wątkiem</li>
+        <li><span class="icon">❌</span>Przyznawaniu się że czegoś nie wie</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="slide-3">
+  <h2 class="slide-title">AI kłamie <em>z przekonaniem.</em></h2>
+  <h3 class="slide-subtitle">Oto dlaczego — i jak się przed tym skutecznie bronić.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Definicja</div>
+      <div class="highlight-box"><strong>Halucynacja AI</strong> = sytuacja gdy model generuje informację która brzmi wiarygodnie, jest podana pewnym tonem — ale jest nieprawdziwa, nieistniejąca lub zmyślona.</div>
+      <p>AI nie "wie" że kłamie. Kontynuuje tekst w sposób który statystycznie wydaje się właściwy — nawet bez podstaw do takiej odpowiedzi.</p>
+
+      <div class="section-header">Typy halucynacji w pracy z nieruchomościami</div>
+      <ul class="checklist">
+        <li><span class="icon">📜</span><span><strong>Wyroki sądów</strong> — podaje nieistniejące sygnatury z pełną treścią i tezą. Brzmi jak prawdziwy wyrok. Nie istnieje.</span></li>
+        <li><span class="icon">📋</span><span><strong>Przepisy</strong> — "Zgodnie z art. 23 ust. 4 ustawy deweloperskiej..." Paragraf może nie istnieć.</span></li>
+        <li><span class="icon">🏙️</span><span><strong>Dane rynkowe</strong> — podaje ceny za m² w Białymstoku których nie ma w żadnym źródle.</span></li>
+        <li><span class="icon">🔢</span><span><strong>Obliczenia złożone</strong> — przy wieloetapowych scenariuszach finansowych błędy się kumulują.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-header">Dlaczego AI jest tak zaprojektowane</div>
+      <p>ChatGPT, Claude, Gemini to produkty komercyjne. Nauczyły się przez lata: <strong>odpowiedź pewna dostaje lepsze oceny niż "nie wiem".</strong></p>
+      <table>
+        <tr><th>Sytuacja</th><th>Dobry lekarz</th><th>AI bez zabezpieczeń</th></tr>
+        <tr><td>Brak wiedzy</td><td>Sprawdzę to</td><td>Podaje odpowiedź</td></tr>
+        <tr><td>Niepewność</td><td>Nie jestem pewien...</td><td>Mówi pewnie</td></tr>
+        <tr><td>Brak danych</td><td>Brak danych</td><td>Generuje dane</td></tr>
+        <tr><td>Nieistn. wyrok</td><td>Nie znam</td><td>Podaje sygnaturę</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="section-header">5 zabezpieczeń które działają</div>
+  <div class="three-col" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="card accent">
+      <h4>1. Każ przyznać się do niewiedzy</h4>
+      <p>"Jeśli nie znasz odpowiedzi — powiedz wprost 'nie wiem' zamiast zgadywać."</p>
+    </div>
+    <div class="card accent">
+      <h4>2. Poproś o źródła</h4>
+      <p>"Do każdego faktu prawnego podaj źródło które mogę zweryfikować."</p>
+    </div>
+    <div class="card accent">
+      <h4>3. AI z internetem</h4>
+      <p>Gemini z wyszukiwarką, Perplexity.ai — cytują źródła, mają aktualne dane.</p>
+    </div>
+    <div class="card accent">
+      <h4>4. Dostarczaj kontekst sam</h4>
+      <p>Wklej umowę → każ AI analizować Twój dokument, nie swoją "wiedzę".</p>
+    </div>
+    <div class="card accent">
+      <h4>5. Weryfikuj fakty krytyczne</h4>
+      <p>Wyroki: <strong>sip.sn.pl</strong> &nbsp;|&nbsp; Przepisy: <strong>isap.sejm.gov.pl</strong> &nbsp;|&nbsp; Dane: GUS, NBP</p>
+    </div>
+    <div class="card" style="border-color:#28a745;">
+      <h4>Złota zasada</h4>
+      <p>AI = świetny asystent do myślenia i pisania. Fatalne źródło faktów prawnych — chyba że sam mu te fakty dostarczysz.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="slide-4">
+  <h2 class="slide-title">AI nie pamięta <em>Ciebie.</em></h2>
+  <h3 class="slide-subtitle">Pamięta tylko tę jedną rozmowę. I to ma ogromne konsekwencje.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Trzy poziomy pamięci</div>
+      <ul class="checklist">
+        <li><span class="icon">🟢</span><span><strong>Pamięć wątku</strong> — AI widzi tylko bieżącą rozmowę. Po zamknięciu zakładki — czysta karta.</span></li>
+        <li><span class="icon">🔵</span><span><strong>Pamięć systemowa (Memory)</strong> — specjalny notatnik POZA rozmowami. Przeżywa zamknięcie przeglądarki.</span></li>
+        <li><span class="icon">🔴</span><span><strong>Brak pamięci między wątkami</strong> — Wątek A i Wątek B to dwa osobne światy.</span></li>
+      </ul>
+
+      <hr class="divider">
+      <div class="section-header">Rozwiązania praktyczne</div>
+      <div class="card" style="margin-bottom:12px;">
+        <h4>Prompt startowy — zrób raz, używaj zawsze</h4>
+        <p>Wklej na początku każdej ważnej rozmowy pełny kontekst: portfolio, cele, styl odpowiedzi.</p>
+      </div>
+      <div class="card" style="margin-bottom:12px;">
+        <h4>Zarządzaj pamięcią systemową</h4>
+        <p>ChatGPT → Settings → Personalization → Memory. Sprawdź co AI "wie" o Tobie i edytuj ręcznie.</p>
+      </div>
+      <div class="card">
+        <h4>Jeden wątek per projekt</h4>
+        <p>Nie otwieraj nowych rozmów — trzymaj jeden wątek dla każdej inwestycji.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-header">Demo które to wyjaśnia lepiej niż opis</div>
+      <div class="demo-box">
+        <h4>🧪 Eksperyment z niebieskim kolorem</h4>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Wątek A — powiedz:</h4>
+            <p><em>"Zapamiętaj że lubię niebieski kolor."</em></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Nowy Wątek B — zapytaj:</h4>
+            <p><em>"Jaki kolor lubię?"</em> → AI odpowie: niebieski ✅<br><small style="color:#888">Pamięć systemowa działa między wątkami</small></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Wróć do Wątku A — zapytaj:</h4>
+            <p><em>"Wymień trzy niebieskie rzeczy."</em> → AI wymieni: niebo, ocean, szafir</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Wątek B — zapytaj:</h4>
+            <p><em>"Co było drugą rzeczą którą wymieniłeś?"</em> → AI nie wie ❌<br><small style="color:#888">Wątek B nigdy nie widział Wątku A</small></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">Szablon prompt startowy</div>
+      <div class="code-block">Jesteś moim asystentem ds. nieruchomości.
+<span class="comment">
+Portfolio: [X] mieszkań w [miasto], segment [popularny/premium]
+Najemcy: [długoterminowi / rotacyjni]
+Cel: [maksymalizacja ROI / bezpieczeństwo]
+Styl: zwięźle, w punktach, po polsku
+Gdy czegoś nie wiesz — powiedz wprost.
+
+Pierwsze zadanie: [tutaj wpisz]</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide" id="slide-5">
+  <h2 class="slide-title">Śmieciowe pytanie = <em>śmieciowa odpowiedź.</em></h2>
+  <h3 class="slide-subtitle">Jak rozmawiać z AI żeby dostawać odpowiedzi które naprawdę działają.</h3>
+
+  <div class="section-header">Kontekst vs. brak kontekstu — różnica przepastna</div>
+  <div class="vs-row">
+    <div class="vs-bad"><div class="label">❌ ŹLE</div><p>"Napisz opis mieszkania."</p></div>
+    <div class="vs-good"><div class="label">✅ DOBRZE</div><p>"Jesteś copywriterem nieruchomości premium w Polsce. Napisz opis mieszkania 65m2 na Osiedlu Słonecznym w Białymstoku, 3 pokoje, remont 2023, widok na park, balkon, miejsce podziemne. Ton: ciepły, aspiracyjny. Długość: 150 słów. Zakończ call-to-action."</p></div>
+  </div>
+
+  <hr class="divider">
+  <div class="two-col">
+    <div>
+      <div class="section-header">5 zasad które zmieniają wszystko</div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>1. Daj kontekst — kim jesteś i co robisz</h4>
+        <p>Powiedz AI czym się zajmujesz, jakie masz portfolio, co chcesz osiągnąć tym konkretnym zadaniem.</p>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>2. Określ format odpowiedzi</h4>
+        <p>Długość, styl, struktura, język. "W punktach" / "Jako gotowy email" / "Maksymalnie 150 słów".</p>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>3. Daj przykład oczekiwanego rezultatu</h4>
+        <p>"Oto opis który mi się podoba: [...]. Napisz podobny dla mojego mieszkania."</p>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>4. Iteruj — nie zaczynaj od nowa</h4>
+        <p>"Dobry start. Skróć o połowę." / "Zmień ton na formalny." / "Napisz trzy alternatywne wersje."</p>
+      </div>
+      <div class="card">
+        <h4>5. Pytaj o scenariusze i alternatywy</h4>
+        <p>"Trzy wersje — elegancka, rodzinna, inwestorska." / "Scenariusz optymistyczny, realistyczny, pesymistyczny."</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-header">Meta-hack: AI pisze prompt za Ciebie</div>
+      <div class="demo-box">
+        <h4>🤖 Prompt Generator — jak to działa</h4>
+        <p style="color:#aaa; font-size:14px; margin-bottom:16px;">Opisz cel po ludzku → poproś AI o optymalny prompt → użyj go</p>
+        <div class="code-block">"Chcę używać AI do analizy umów 
+kupna-sprzedaży nieruchomości pod 
+kątem ryzyk dla kupującego. Napisz mi 
+optymalny prompt do tego zadania."</div>
+        <p style="color:#4d9fff; font-size:13px; margin-bottom:8px;">AI generuje:</p>
+        <div class="code-block" style="font-size:12px;">"Działasz jako prawnik specjalizujący 
+się w prawie nieruchomości w Polsce. 
+Przeanalizuj umowę i zidentyfikuj:
+(1) klauzule niekorzystne dla kupującego 
+    — podaj numer paragrafu i ryzyko,
+(2) brakujące standardowe zabezpieczenia,
+(3) zapisy wymagające negocjacji.
+Jeśli czegoś nie wiesz — powiedz wprost.
+Oto umowa: [WKLEJ TUTAJ]"</div>
+      </div>
+      <div class="highlight-box" style="font-size:16px; margin-top:16px;">
+        Nie musisz być ekspertem od promptowania. Musisz wiedzieć <strong>czego chcesz</strong>. AI pomoże Ci zapytać o to we właściwy sposób.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide" id="slide-6">
+  <h2 class="slide-title">ChatGPT: <em>GPT-5.2</em></h2>
+  <h3 class="slide-subtitle">Wszyscy znają, mało kto używa dobrze. Przewodnik po funkcjach których 90% użytkowników nie odkryło.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Plany i modele — luty 2026</div>
+      <table>
+        <tr><th>Plan</th><th>Model</th><th>Cena</th></tr>
+        <tr><td>Free</td><td>GPT-5.2 Instant (limit)</td><td>$0</td></tr>
+        <tr><td>Go</td><td>GPT-5.2 Instant (10× więcej)</td><td>~$10/mc</td></tr>
+        <tr><td>Plus</td><td>GPT-5.2 Instant + Thinking</td><td>~$20/mc</td></tr>
+        <tr><td>Pro</td><td>GPT-5.2 Thinking nieograniczony</td><td>~$200/mc</td></tr>
+      </table>
+      <p style="font-size:13px; color:#666; margin-top:8px;">⚠️ OpenAI testuje reklamy dla darmowych użytkowników (od stycznia 2026, USA). Płatne plany bez reklam.</p>
+
+      <div class="section-header">Tryb głosowy — asystent w kieszeni</div>
+      <p>Aplikacja mobilna → ikona słuchawek → rozmawiasz jak przez telefon. AI słyszy, odpowiada głosem, prowadzi przez problem.</p>
+      <ul class="checklist">
+        <li><span class="icon">🚗</span>Jazda między nieruchomościami — dyktuj notatki i pytania</li>
+        <li><span class="icon">🎯</span>Przygotowanie do spotkania z klientem — przećwicz na głos</li>
+        <li><span class="icon">📸</span>Analiza nieruchomości którą oglądasz — opisz co widzisz</li>
+      </ul>
+
+      <div class="section-header">Analiza zdjęć</div>
+      <p>GPT-5.2 widzi obrazy. Wrzuć zdjęcie mieszkania i zapytaj o home staging, usterki, wycenę remontu. Wrzuć zdjęcie dokumentu — AI odczyta i przepisze tekst.</p>
+    </div>
+    <div>
+      <div class="section-header">Praktyczne zastosowania dla inwestora</div>
+      <div class="card" style="margin-bottom:12px;">
+        <h4>📝 Opis oferty w 2 minuty</h4>
+        <p>Zdjęcia mieszkania → wrzuć do GPT-5.2 → poproś o opis na Otodom z call-to-action</p>
+      </div>
+      <div class="card" style="margin-bottom:12px;">
+        <h4>🔍 Analiza konkurencji</h4>
+        <p>Wklej 5 ogłoszeń konkurencji → "Co robią dobrze, czego im brakuje, jak wyróżnić moje ogłoszenie?"</p>
+      </div>
+      <div class="card" style="margin-bottom:12px;">
+        <h4>💬 Odpowiedzi dla najemców</h4>
+        <p>"Napisz 10 gotowych odpowiedzi na pytania o: parking, zwierzęta, podnajem, naprawy, kaucję."</p>
+      </div>
+      <div class="card" style="margin-bottom:12px;">
+        <h4>🥊 Przygotowanie do negocjacji</h4>
+        <p>"Gram kupującego który chce zbić cenę o 15%. Ty jesteś sprzedającym. Przećwiczmy."</p>
+      </div>
+      <div class="card">
+        <h4>🤖 Własne GPT (Projekty)</h4>
+        <p>Stwórz "Asystenta ds. moich najemców" z Twoimi szablonami, lub "Analizator umów" ze specyficznymi instrukcjami dla Twojego rynku.</p>
+      </div>
+      <a class="link-pill" href="https://chat.openai.com" target="_blank">🌐 chat.openai.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide" id="slide-7">
+  <h2 class="slide-title">Ekosystem Google: <em>Gemini 3.1 + NotebookLM</em></h2>
+  <h3 class="slide-subtitle">Gemini do codziennej pracy z aktualną wiedzą. NotebookLM do głębokiej analizy Twoich dokumentów.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Gemini 3.1 Pro — luty 2026</div>
+      <p>Najnowszy model Google (19.02.2026). Największa przewaga nad ChatGPT: <strong>dostęp do wyszukiwarki Google w czasie rzeczywistym</strong> — cytuje źródła, ma aktualne dane, nie zgaduje.</p>
+      <table>
+        <tr><th>Gdzie</th><th>Co Gemini może zrobić</th></tr>
+        <tr><td>Gmail</td><td>Streszczać wątki, pisać odpowiedzi</td></tr>
+        <tr><td>Google Docs</td><td>Pisać, edytować, tłumaczyć</td></tr>
+        <tr><td>Google Sheets</td><td>Formuły, analiza danych, wyjaśnienia</td></tr>
+        <tr><td>Google Meet</td><td>Transkrypcja + podsumowanie spotkania</td></tr>
+        <tr><td>Google Drive</td><td>Przeszukiwać i streszczać pliki</td></tr>
+      </table>
+      <div class="card accent" style="margin-top:16px;">
+        <h4>⚡ Killer feature: Export do Google Docs</h4>
+        <p>Gemini → zadaj pytanie → prawa strona → ikona eksportu → jeden klik → gotowy edytowalny dokument na Dysku. Zero kopiowania, zero formatowania.</p>
+      </div>
+      <a class="link-pill" href="https://gemini.google.com" target="_blank">🌐 gemini.google.com</a>
+    </div>
+    <div>
+      <div class="section-header">NotebookLM — Twoje dokumenty, Twoje odpowiedzi</div>
+      <p>Wgrywasz własne dokumenty → AI pracuje <strong>TYLKO na nich</strong> → każda odpowiedź zawiera cytat z Twojego dokumentu z numerem strony. Zero halucynacji z zewnątrz.</p>
+
+      <div class="card" style="margin-bottom:10px;">
+        <h4>📄 Due diligence umowy deweloperskiej (80 stron)</h4>
+        <p>"Jakie zapisy są niekorzystne dla kupującego?" / "Czy umowa zawiera klauzulę waloryzacyjną?" / "Warunki odstąpienia — ile wynosi kara?"</p>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>📑 Kilka dokumentów jednocześnie</h4>
+        <p>Wgraj umowę + regulamin wspólnoty + prospekt dewelopera → zapytaj o sprzeczności między dokumentami.</p>
+      </div>
+      <div class="card accent" style="margin-bottom:10px;">
+        <h4>🎙️ Podcast w 2 minuty</h4>
+        <p>NotebookLM zamienia dokumenty w podcast — rozmowę dwóch AI-hostów omawiających Twoje materiały. Idealne do nauki podczas jazdy samochodem.</p>
+      </div>
+      <p style="font-size:13px; color:#666;">Działa na Gemini 3.1 Pro dla subskrybentów Google AI Pro/Ultra</p>
+      <a class="link-pill" href="https://notebooklm.google.com" target="_blank">🌐 notebooklm.google.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide" id="slide-8">
+  <h2 class="slide-title">Claude <em>Opus 4.6 / Sonnet 4.6</em></h2>
+  <h3 class="slide-subtitle">AI które tworzy narzędzia — nie tylko odpowiedzi. Od analizy dokumentów po działający dashboard w jednej sesji.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Czym Claude różni się — luty 2026</div>
+      <table>
+        <tr><th></th><th>GPT-5.2</th><th>Gemini 3.1</th><th>Claude 4.6</th></tr>
+        <tr><td>Kontekst</td><td>256k</td><td>1M</td><td><strong>1M (beta)</strong></td></tr>
+        <tr><td>Kodowanie</td><td>Świetne</td><td>Dobre</td><td><strong>Najlepsze</strong></td></tr>
+        <tr><td>Benchm. GDPval</td><td>Baseline</td><td>—</td><td><strong>+144 ELO wyżej</strong></td></tr>
+        <tr><td>Reklamy</td><td>Tak (free)</td><td>Nie</td><td><strong>Nigdy</strong></td></tr>
+        <tr><td>Agent Teams</td><td>Codex</td><td>—</td><td><strong>Tak (Opus 4.6)</strong></td></tr>
+      </table>
+      <p style="font-size:13px; color:#28a745; margin-top:8px;">✅ Anthropic oficjalnie ogłosiło: Claude pozostaje ad-free na zawsze.</p>
+
+      <div class="section-header">Co Claude może zbudować dla inwestora</div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>🌐 Strony internetowe</h4>
+        <p>Strona ai-mieszkanicznik.netlify.app powstała w Claude. Jeden prompt, kilka iteracji, gotowe wdrożenie. Zero znajomości programowania.</p>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>📊 Kalkulatory inwestycyjne</h4>
+        <p>ROI z uwzględnieniem kosztów remontu, pustostanów, zarządzania. Symulator przy różnych stopach procentowych.</p>
+      </div>
+      <div class="card">
+        <h4>⚙️ Automatyzacje Google Sheets</h4>
+        <p>Skrypty Apps Script które automatyzują powtarzalne zadania w Twoich arkuszach. Bez programowania z Twojej strony.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-header">Demo na żywo: Dashboard Bitcoin vs Nvidia</div>
+      <div class="demo-box">
+        <h4>💻 Prompt który zostanie wpisany teraz</h4>
+        <div class="code-block" style="font-size:12px;">"Stwórz interaktywny dashboard w HTML 
+który pokazuje historyczne ceny Bitcoin 
+i Nvidia na jednym wykresie. 
+Użytkownik może zmieniać zakres dat.
+Dane pobierane z darmowego API.
+Kod ma działać po otwarciu pliku HTML 
+w przeglądarce, bez instalacji."</div>
+        <div class="three-col" style="margin-top:16px;">
+          <div class="stat"><div class="number" style="font-size:32px;">4 min</div><div class="label">czas do działającego narzędzia</div></div>
+          <div class="stat"><div class="number" style="font-size:32px;">500-1500 zł</div><div class="label">koszt u programisty</div></div>
+          <div class="stat"><div class="number" style="font-size:32px;">$0</div><div class="label">koszt z Claude (plan darmowy)</div></div>
+        </div>
+      </div>
+
+      <div class="section-header">Claude jako narzędzie analizy</div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>📋 Analiza portfela</h4>
+        <p>Wklej dane z nieruchomości → analiza rentowności, identyfikacja słabych punktów, rekomendacje.</p>
+      </div>
+      <div class="card accent">
+        <h4>📊 Demo z Waszej ankiety</h4>
+        <p>Przed przyjazdem wkleiłem Wasze odpowiedzi do Claude. W 30 sekund dostałem pełną analizę: najczęstsze obawy, kluczowe pytania, rekomendacje dla tej prezentacji. Dlatego zaczęliśmy od halucynacji.</p>
+      </div>
+      <a class="link-pill" href="https://claude.ai" target="_blank">🌐 claude.ai</a>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide" id="slide-9">
+  <h2 class="slide-title">Gamma i <em>HeyGen</em></h2>
+  <h3 class="slide-subtitle">Prezentacje z promptu. Twój awatar wideo — bez kamery i bez studia.</h3>
+
+  <div class="two-col">
+    <div>
+      <div class="section-header">Gamma — ta prezentacja powstała w Gamma</div>
+      <p>Narzędzie AI które generuje prezentacje, strony i dokumenty na podstawie tekstu. Gamma jako silnik graficzny — tekst i treść przygotowane wcześniej pod kontrolą, Gamma tylko oprawia wizualnie.</p>
+
+      <div class="step" style="margin-top:16px;">
+        <div class="step-num">1</div>
+        <div class="step-content"><h4>Wejdź na gamma.app</h4><p>Kliknij "New" → "Generate with AI"</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content"><h4>Wklej gotowy tekst</h4><p>Pełna treść przygotowana wcześniej — Gamma nie zmienia treści, tylko oprawia graficznie</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content"><h4>Wybierz styl wizualny</h4><p>Kolory, czcionki, układ — to jest twórcza przestrzeń Gamma</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content"><h4>Eksportuj PDF lub PPTX</h4><p>Jeden klik — gotowe do wysłania lub druku</p></div>
+      </div>
+
+      <hr class="divider">
+      <div class="two-col" style="margin:0;">
+        <div class="card">
+          <h4>Plan darmowy</h4>
+          <p>~400 kredytów ≈ 8-10 prezentacji</p>
+        </div>
+        <div class="card accent">
+          <h4>Plan Pro</h4>
+          <p>~$10/miesiąc — nieograniczone</p>
+        </div>
+      </div>
+      <a class="link-pill" href="https://gamma.app" target="_blank">🌐 gamma.app</a>
+    </div>
+    <div>
+      <div class="section-header">HeyGen — Twój awatar wideo</div>
+      <p>Ktoś z Was zapytał w ankiecie jak tworzyć awatary. To jest odpowiedź.</p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content"><h4>Nagraj 2 minuty siebie</h4><p>Jednorazowo, telefonem. HeyGen klonuje Twój wygląd i głos.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content"><h4>Wpisz tekst</h4><p>Od tej chwili: tekst → wideo z Tobą mówiącym ten tekst. W dowolnym języku.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content"><h4>Używaj bez kamery</h4><p>Bez studia, bez ustawiania światła, o każdej porze.</p></div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-header">Zastosowania w nieruchomościach</div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>🏠 Wideo-oferta spersonalizowana</h4>
+        <p>"Dzień dobry Pani Anno, chciałem przedstawić mieszkanie które spełnia Pani kryteria..." — 50 takich wiadomości w godzinę.</p>
+      </div>
+      <div class="card" style="margin-bottom:10px;">
+        <h4>👋 Powitanie nowego najemcy</h4>
+        <p>Nagrane raz jako tekst → generowane z Twoją twarzą dla każdego nowego najemcy.</p>
+      </div>
+      <div class="card">
+        <h4>📹 Marketing bez nagrywania</h4>
+        <p>Filmy o inwestycjach, okolicach, trendach — bez wychodzenia przed kamerę.</p>
+      </div>
+      <p style="font-size:13px; color:#666; margin-top:12px;">Koszt: od ~$24/miesiąc</p>
+      <a class="link-pill" href="https://heygen.com" target="_blank">🌐 heygen.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide" id="slide-10">
+  <h2 class="slide-title">Nie ucz się wszystkiego. <em>Zacznij od jednego.</em></h2>
+  <h3 class="slide-subtitle">Konkretny plan na pierwszy tydzień — dla kogoś kto chce wyniki, nie teorię.</h3>
+
+  <div class="three-col">
+    <div class="card accent">
+      <h4>📝 Dzień 1-2: ChatGPT do ofert</h4>
+      <p>Weź jedno aktywne ogłoszenie. Użyj promptu z kontekstem. Porównaj z tym co napisałeś sam. Oceń. Iteruj.</p>
+    </div>
+    <div class="card accent">
+      <h4>📄 Dzień 3-4: NotebookLM do dokumentu</h4>
+      <p>Wgraj umowę najmu. Zadaj 5 pytań. Sprawdź czy odpowiedzi są trafne i cytowane z Twojego dokumentu.</p>
+    </div>
+    <div class="card accent">
+      <h4>📧 Dzień 5-7: Gemini do emaili</h4>
+      <p>Następny długi email — użyj Gemini jako pierwszego szkicu. Opisz w 2 zdaniach o co chodzi. Popraw. Porównaj czas.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin: 20px 0; border-color:#28a745;">
+    <h4>🏆 Wyzwanie bonusowe</h4>
+    <p>Użyj Claude żeby stworzyć kalkulator opłacalności inwestycji dla jednej ze swoich nieruchomości. Wpisz dane, poproś o plik HTML, otwórz w przeglądarce, używaj na co dzień.</p>
+  </div>
+
+  <hr class="divider">
+  <div class="section-header">Twój zestaw startowy — wszystkie linki</div>
+  <table>
+    <tr><th>Narzędzie</th><th>Link</th><th>Koszt startu</th><th>Pierwsze zastosowanie</th></tr>
+    <tr><td>🤖 ChatGPT (GPT-5.2)</td><td><a href="https://chat.openai.com" target="_blank" style="color:#e85d04;">chat.openai.com</a></td><td>Darmowy / Go $10</td><td>Opisy ofert, emaile, negocjacje</td></tr>
+    <tr><td>🔵 Claude (Sonnet 4.6)</td><td><a href="https://claude.ai" target="_blank" style="color:#e85d04;">claude.ai</a></td><td>Darmowy</td><td>Analiza dokumentów, kodowanie</td></tr>
+    <tr><td>🟣 Gemini (3.1 Pro)</td><td><a href="https://gemini.google.com" target="_blank" style="color:#e85d04;">gemini.google.com</a></td><td>Darmowy (masz Google)</td><td>Gmail, Docs, aktualne dane</td></tr>
+    <tr><td>📓 NotebookLM</td><td><a href="https://notebooklm.google.com" target="_blank" style="color:#e85d04;">notebooklm.google.com</a></td><td>Darmowy</td><td>Analiza umów, due diligence</td></tr>
+    <tr><td>🎨 Gamma</td><td><a href="https://gamma.app" target="_blank" style="color:#e85d04;">gamma.app</a></td><td>Darmowy (400 kredytów)</td><td>Prezentacje dla klientów</td></tr>
+    <tr><td>🎬 HeyGen</td><td><a href="https://heygen.com" target="_blank" style="color:#e85d04;">heygen.com</a></td><td>$24/mc</td><td>Wideo-oferty, awatar</td></tr>
+  </table>
+
+  <hr class="divider">
+  <div class="three-col">
+    <div class="card">
+      <h4>🎯 AI to narzędzie — nie wyrocznia</h4>
+      <p>Używaj do myślenia i pisania. Fakty prawne i finansowe weryfikuj zawsze w źródłach.</p>
+    </div>
+    <div class="card">
+      <h4>💬 Jakość pytania = jakość odpowiedzi</h4>
+      <p>Traktuj AI jak mądrego stażystę pierwszego dnia w pracy. Twój obowiązek to go wprowadzić.</p>
+    </div>
+    <div class="card accent">
+      <h4>🚀 Zacznij od jednej rzeczy</h4>
+      <p>Opanuj jedno narzędzie do jednego zastosowania. Potem dodaj kolejne.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:32px; text-align:center;">
+    "Za tydzień połowa z Was spróbuje. Za miesiąc część zostanie na stałe. Za rok ci którzy zostali będą robić pewne rzeczy <strong>10 razy szybciej niż konkurencja.</strong>"
+  </div>
+
+  <div style="text-align:center; margin-top:32px;">
+    <a class="link-pill" href="mailto:mlink.consulting@proton.me">📧 mlink.consulting@proton.me</a>
+    <a class="link-pill" href="https://ai-mieszkanicznik.netlify.app/" target="_blank">🌐 ai-mieszkanicznik.netlify.app</a>
+  </div>
+</div>
+
+<div class="nav-arrows">
+  <button class="nav-btn" onclick="changeSlide(-1)">←</button>
+  <button class="nav-btn" onclick="changeSlide(1)">→</button>
+</div>
+<div class="slide-number" id="slideNumber">Slajd 1 z 10</div>
+
+<script>
+  let current = 1;
+  const total = 10;
+
+  function buildDots() {
+    const container = document.getElementById('navDots');
+    for (let i = 1; i <= total; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === 1 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      container.appendChild(dot);
+    }
+  }
+
+  function goToSlide(n) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    document.querySelectorAll('.nav-dot')[current - 1].classList.remove('active');
+    current = n;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.querySelectorAll('.nav-dot')[current - 1].classList.add('active');
+    document.getElementById('navCounter').textContent = current + ' / ' + total;
+    document.getElementById('slideNumber').textContent = 'Slajd ' + current + ' z ' + total;
+    window.scrollTo(0, 0);
+  }
+
+  function changeSlide(dir) {
+    let next = current + dir;
+    if (next < 1) next = total;
+    if (next > total) next = 1;
+    goToSlide(next);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+
+  buildDots();
+</script>
+</body>
+</html>
